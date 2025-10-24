@@ -38,7 +38,7 @@
 
 <script>
 // Ajusta esta URL base a la dirección de tu servidor FastAPI
-const API_BASE_URL = "http://localhost:8000"; 
+const API_BASE_URL = "https://backend-upper.onrender.com"; 
 
 export default {
    name: "comp_otras_etiquetas",
