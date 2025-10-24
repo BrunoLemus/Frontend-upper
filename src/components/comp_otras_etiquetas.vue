@@ -20,11 +20,12 @@
     <div class="preview-container">
       <h3 class="preview-title">Vista Previa (Simulada ZPL)</h3>
       <div v-if="tipoEtiqueta === 'fragil'" class="preview-box">
-        <span class="symbol">🍸</span>
+        <span class="symbol">⭗</span> 
         <p>FRÁGIL</p>
       </div>
       <div v-else-if="tipoEtiqueta === 'hacia_arriba'" class="preview-box">
-        <span class="symbol">⬆️⬆️</span>
+        <span class="symbol">⬆</span>
+        <span class="symbol">⬆</span>
         <p>ESTE LADO ARRIBA</p>
       </div>
     </div>
@@ -39,9 +40,9 @@
 </template>
 
 <script>
-// URL de la API Central (donde generas el ZPL)
-const CENTRAL_API_BASE_URL = "https://backend-upper.onrender.com"; // Ajusta esto si usas localhost
-// URL del Micro-servicio Local (donde envías el ZPL a la impresora)
+// El código de <script> y las funciones no se modifican para mantener la funcionalidad.
+// ... (mantenemos el código de script original)
+const CENTRAL_API_BASE_URL = "https://backend-upper.onrender.com"; 
 const LOCAL_PRINT_API_URL = "http://127.0.0.1:8001/print"; 
 
 export default {
@@ -92,7 +93,7 @@ export default {
             if (!response.ok || data.error) {
               throw new Error(`El servidor reportó un error: ${data.error || response.statusText}`);
             }
-          
+            
             zplCode = data.zpl_code;
             if (!zplCode || zplCode.length === 0) throw new Error("La API Central devolvió un código ZPL vacío.");
             
@@ -123,7 +124,7 @@ export default {
             const printData = await printResponse.json();
             
             if (!printResponse.ok || printData.error) {
-                 throw new Error(`El servicio local reportó un error: ${printData.error || printResponse.statusText}`);
+                    throw new Error(`El servicio local reportó un error: ${printData.error || printResponse.statusText}`);
             }
 
             console.log("✅ Impresión USB exitosa:", printData);
@@ -157,11 +158,25 @@ export default {
 .crud-input:focus { outline: none; border-color: #3b82f6; box-shadow: 0px 0px 6px rgba(59, 130, 246, 0.4); }
 .preview-container { margin: 20px 0; text-align: center; }
 .preview-title { font-size: 15px; margin-bottom: 10px; color: #555; font-weight: 600; }
-.preview-box { display: inline-block; padding: 12px; border: 2px dashed #3b82f6; border-radius: 10px; background: #f9fafb; }
+.preview-box { 
+    display: inline-block; 
+    padding: 12px; 
+    border: 2px dashed #3b82f6; 
+    border-radius: 10px; 
+    background: #f9fafb; 
+    /* Ajuste para que las flechas queden centradas verticalmente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 /* ESTILOS DE SIMULACIÓN */
 .preview-box .symbol {
     font-size: 80px; /* Tamaño grande para simular el símbolo en la etiqueta */
+    /* AJUSTE: Aseguramos que se vea como un dibujo, no un emoji de color */
+    color: black; 
+    font-family: Arial, sans-serif; 
     display: block;
     line-height: 1;
     margin-bottom: 5px;
